@@ -383,7 +383,7 @@ public class LoginView {
 			if(encontrado) {
 				JOptionPane.showMessageDialog(btnIniciar, "LOGIN CORRECTO \nBienvenidx " + username);
 				frameLoginView.setVisible(false);
-				new PokedexView(frameLoginView, username, 0);
+				new PokedexView();
 			//o no
 			}else{
 				JOptionPane.showMessageDialog(btnIniciar, "           LOGIN INCORRECTO \nIntroduzca sus datos correctamente \no registrése si no posee una cuenta");

@@ -24,8 +24,8 @@ public class UsuarioDAO {
     	      		      
 	         while(rs.next()){
 	            //Display values
-	            System.out.print("Username: " + rs.getInt("username"));
-	            System.out.print("Password: " + rs.getInt("password"));  
+	            System.out.print("Username: " + rs.getString("username"));
+	            System.out.print("Password: " + rs.getString("password"));  
 	         }
 	      } catch (SQLException e) {
 	         e.printStackTrace();

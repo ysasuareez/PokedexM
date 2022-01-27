@@ -31,34 +31,33 @@ import models.Pokemon;
 
 import javax.swing.border.EtchedBorder;
 
-public class PokedexView {
+public class PokedexView2 {
 
 	private int idPokemon;
 	private JFrame framePokedexView;
 	private JFrame frameLoginView;
 	private JLabel lblTipo1;
-	private JLabel lblTipoPoke1;
+	private JTextField lblTipoPoke1;
 	private JButton btnMenos;
 	private JButton btnMas;
 	private JFrame parent;
 	private JLabel lblAltura;
-	private JLabel lblAlturaPoke;
+	private JTextField lblAlturaPoke;
 	private JLabel lblPeso;
-	private JLabel lblPesoPoke;
+	private JTextField lblPesoPoke;
 	private JLabel lblNombrePoke;
 	private JLabel lblCategoria;
-	private JLabel lblCategoriaPoke;
+	private JTextField lblCategoriaPoke;
 	private JLabel lblHabilidad;
-	private JLabel lblHabilidadPoke;
+	private JTextField lblHabilidadPoke;
 	private JButton btnActualizar;
 	private JButton btnBorrar;
 	private JButton btnCrear;
 	private JButton btnCerrarSesion;
 	private String username;
 	private JLabel lblNumeroPokemon;
-	private JLabel lblNumeroPoke;
 	private JLabel lblTipo2;
-	private JLabel lblTipoPoke2;
+	private JTextField lblTipoPoke2;
 	private Panel bordePantalla;
 	private JPanel Pantalla;
 	private JPanel bordeCrear;
@@ -87,8 +86,9 @@ public class PokedexView {
 	/**
 	 * Create the application. (Constructor)
 	 */	
-	public PokedexView() {
+	public PokedexView2(JFrame parent, String username) {
 		initialize();
+		this.username = username;
 		this.parent = parent;
 		this.pokemonDAO = new PokemonDAO();		
 		this.lista_pokemons = pokemonDAO.getAll();
@@ -181,15 +181,10 @@ public class PokedexView {
 		//DENTRO DE PANTALLA
 		
 				//NÚMERO
-				lblNumeroPokemon = new JLabel("POKEMON Nº ");
+				lblNumeroPokemon = new JLabel("POKEMON Nº " + (indice));
 				lblNumeroPokemon.setFont(new Font("Caladea", Font.BOLD | Font.ITALIC, 17));
 				lblNumeroPokemon.setBounds(20, 10, 156, 49);
 				Pantalla.add(lblNumeroPokemon);
-				
-				lblNumeroPoke = new JLabel();
-				lblNumeroPoke.setFont(new Font("Caladea", Font.BOLD | Font.ITALIC, 17));
-				lblNumeroPoke.setBounds(145, 10, 60, 49);
-				Pantalla.add(lblNumeroPoke);
 				
 				//NOMBRE
 				lblNombrePoke = new JLabel ();
@@ -205,9 +200,11 @@ public class PokedexView {
 				Pantalla.add(lblTipo1);
 				lblTipo1.setHorizontalAlignment(SwingConstants.LEFT);
 				
-				lblTipoPoke1 = new JLabel ();
+				lblTipoPoke1 = new JTextField ();
+				lblTipoPoke1.setBackground(Color.WHITE);
+				lblTipoPoke1.setEditable(false);
 				lblTipoPoke1.setFont(new Font("Alef", Font.PLAIN, 13));
-				lblTipoPoke1.setBounds(73, 236, 66, 13);
+				lblTipoPoke1.setBounds(73, 231, 66, 20);
 				Pantalla.add(lblTipoPoke1);
 				
 				
@@ -217,9 +214,11 @@ public class PokedexView {
 				Pantalla.add(lblTipo2);
 				lblTipo2.setHorizontalAlignment(SwingConstants.LEFT);
 				
-				lblTipoPoke2 = new JLabel();
+				lblTipoPoke2 = new JTextField();
+				lblTipoPoke2.setBackground(Color.WHITE);
+				lblTipoPoke2.setEditable(false);
 				lblTipoPoke2.setFont(new Font("Alef", Font.PLAIN, 13));
-				lblTipoPoke2.setBounds(73, 259, 66, 13);
+				lblTipoPoke2.setBounds(73, 254, 66, 20);
 				Pantalla.add(lblTipoPoke2);
 				
 				//ALTURA
@@ -229,9 +228,11 @@ public class PokedexView {
 				Pantalla.add(lblAltura);
 				lblAltura.setHorizontalAlignment(SwingConstants.LEFT);
 				
-				lblAlturaPoke = new JLabel ();
+				lblAlturaPoke = new JTextField ();
+				lblAlturaPoke.setBackground(Color.WHITE);
+				lblAlturaPoke.setEditable(false);
 				lblAlturaPoke.setFont(new Font("Alef", Font.PLAIN, 13));
-				lblAlturaPoke.setBounds(73, 282, 71, 13);
+				lblAlturaPoke.setBounds(73, 277, 71, 20);
 				Pantalla.add(lblAlturaPoke);
 				
 				//PESO
@@ -241,9 +242,11 @@ public class PokedexView {
 				Pantalla.add(lblPeso);
 				lblPeso.setHorizontalAlignment(SwingConstants.LEFT);
 				
-				lblPesoPoke = new JLabel ();
+				lblPesoPoke = new JTextField ();
+				lblPesoPoke.setBackground(Color.WHITE);
+				lblPesoPoke.setEditable(false);
 				lblPesoPoke.setFont(new Font("Alef", Font.PLAIN, 13));
-				lblPesoPoke.setBounds(223, 236, 71, 13);
+				lblPesoPoke.setBounds(223, 231, 71, 20);
 				Pantalla.add(lblPesoPoke);
 								
 				//CATEGORIA
@@ -253,9 +256,11 @@ public class PokedexView {
 				Pantalla.add(lblCategoria);
 				lblCategoria.setHorizontalAlignment(SwingConstants.LEFT);
 				
-				lblCategoriaPoke = new JLabel ();
+				lblCategoriaPoke = new JTextField ();
+				lblCategoriaPoke.setBackground(Color.WHITE);
+				lblCategoriaPoke.setEditable(false);
 				lblCategoriaPoke.setFont(new Font("Alef", Font.PLAIN, 13));
-				lblCategoriaPoke.setBounds(223, 259, 71, 13);
+				lblCategoriaPoke.setBounds(223, 254, 71, 20);
 				Pantalla.add(lblCategoriaPoke);
 				
 				//HABILIDAD
@@ -265,17 +270,22 @@ public class PokedexView {
 				Pantalla.add(lblHabilidad);
 				lblHabilidad.setHorizontalAlignment(SwingConstants.LEFT);
 				
-				lblHabilidadPoke = new JLabel ();
+				lblHabilidadPoke = new JTextField ();
+				lblHabilidadPoke.setBackground(Color.WHITE);
+				lblHabilidadPoke.setEditable(false);
 				lblHabilidadPoke.setFont(new Font("Alef", Font.PLAIN, 13));
-				lblHabilidadPoke.setBounds(223, 282, 78, 13);
+				lblHabilidadPoke.setBounds(223, 277, 78, 20);
 				Pantalla.add(lblHabilidadPoke);																
 				
 				
 				//IMAGEN
 				lblImagen = new JLabel();
 				lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
-				lblImagen.setBounds(20, 64, 275, 153);
+				lblImagen.setIcon(new ImageIcon(""));
+				lblImagen.setBounds(20, 51, 275, 153);
 				Pantalla.add(lblImagen);
+				
+				
 								
 
 				
@@ -405,94 +415,89 @@ public class PokedexView {
 	 */
 	private void configureListeners() {
 
-			//Si presionas Cerrar Sesión se eliminará la ventana de pokedex y volverá a aprecer parent (en este caso es la LoginView)
-			btnCerrarSesion.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					framePokedexView.dispose();
-					parent.setVisible(true);
-				}
-			});
-			
-			//Borra el pokemon en el que te encuentras, al menos debes tener 1
-			btnBorrar.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					if(Almacen.lista_pokemons.size() > 1) {
-						Almacen.lista_pokemons.remove(idPokemon);
-						new PokedexView();
-						framePokedexView.dispose();
-					} else {
-						JOptionPane.showMessageDialog(btnBorrar, "Debes tener al menos un pokemon registrado.");
-					}
-				}
-			});
-			
-			//Actualiza los datos del pokemon en el que te encuentras
-			btnActualizar.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					
-					Pokemon pokemon = lista_pokemons.get(indice);
-					
-					new ActualizarView(indice, pokemon);
-					
-					framePokedexView.dispose();
-
-				}
-			});
-			
-			//Va hacia atrás en la lista de pokemons, no podrás retroceder más de lo que tienes
-			btnMenos.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					indice--;
-					
-					if(indice == lista_pokemons.size()) {
-						indice = 0;
-					}
-					
-					printPokemon();		
-
-				}
-			});
-			
-			//Va hacia delante en la lista de pokemons, no podrás avanzar más de lo que tienes
-			btnMas.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					indice++;
-					
-					if(indice == lista_pokemons.size()) {
-						indice = 0;
-					}
-					
-					printPokemon();	
-						
-						
-									
-				}
-			});
-			
-			//Cambia al CreacionView
-			btnCrear.addActionListener(new ActionListener() {
+		//Si presionas Cerrar Sesión se eliminará la ventana de pokedex y volverá a aprecer parent (en este caso es la LoginView)
+		btnCerrarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				framePokedexView.dispose();
-				new CrearView(lista_pokemons.size()+1);
+				parent.setVisible(true);
 			}
-			});
-			
-	}
+		});
+		
+		//Borra el pokemon en el que te encuentras, al menos debes tener 1
+		btnBorrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(Almacen.lista_pokemons.size() > 1) {
+					Almacen.lista_pokemons.remove(idPokemon);
+					new PokedexView();
+					framePokedexView.dispose();
+				} else {
+					JOptionPane.showMessageDialog(btnBorrar, "Debes tener al menos un pokemon registrado.");
+				}
+			}
+		});
+		
+		//Actualiza los datos del pokemon en el que te encuentras
+		btnActualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new ActualizarView(framePokedexView, indice, lista_pokemons.get(indice));
+				framePokedexView.dispose();
+			}
+		});
+		
+		//Va hacia atrás en la lista de pokemons, no podrás retroceder más de lo que tienes
+		btnMenos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				indice--;
+				
+				if(indice == lista_pokemons.size()) {
+					indice = 0;
+				}
+				
+				printPokemon();		
+
+			}
+		});
+		
+		//Va hacia delante en la lista de pokemons, no podrás avanzar más de lo que tienes
+		btnMas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				indice++;
+				
+				if(indice == lista_pokemons.size()) {
+					indice = 0;
+				}
+				
+				printPokemon();	
+					
+					
+								
+			}
+		});
+		
+		//Cambia al CreacionView
+		btnCrear.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			framePokedexView.dispose();
+			new CrearView(lista_pokemons.size()+1);
+		}
+		});
+		
+}
+
 	
 	public void printPokemon() {
 		
-		Pokemon pokemon = lista_pokemons.get(indice);
-		lblNumeroPoke.setText(String.valueOf(pokemon.getIdPokemon()));
-		lblNombrePoke.setText(pokemon.getNombre());
-		lblTipoPoke1.setText(String.valueOf(pokemon.getTipo1()));
-		lblTipoPoke2.setText(String.valueOf(pokemon.getTipo2()));
-		lblAlturaPoke.setText(String.valueOf(pokemon.getAltura()));
-		lblPesoPoke.setText(String.valueOf(pokemon.getPeso()));
-		lblCategoriaPoke.setText(pokemon.getCategoria());
-		lblHabilidadPoke.setText(pokemon.getHabilidad());
-		lblImagen.setIcon(new ImageIcon(pokemon.getImagen()));
+		if (lista_pokemons.size() > 0) {
+			Pokemon pokemon = lista_pokemons.get(indice);
+			lblNombrePoke.setText(pokemon.getNombre());
+			lblTipoPoke1.setText(String.valueOf(pokemon.getTipo1()));
+			lblTipoPoke2.setText(String.valueOf(pokemon.getTipo2()));
+			lblAlturaPoke.setText(String.valueOf(pokemon.getAltura()));
+			lblPesoPoke.setText(String.valueOf(pokemon.getPeso()));
+			lblCategoriaPoke.setText(pokemon.getCategoria());
+			lblHabilidadPoke.setText(pokemon.getHabilidad());
+			lblImagen.setText(pokemon.getImagen());
+		}
 		
 	}
 }
-
-

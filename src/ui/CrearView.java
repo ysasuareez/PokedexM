@@ -27,13 +27,16 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JPasswordField;
 import javax.swing.border.TitledBorder;
+
+import dao.PokemonDAO;
+
 import javax.swing.border.EtchedBorder;
 
 public class CrearView {
 
 	private JFrame frameCrearView;
 	private JFrame parent;
-	private int numeroPokemon;
+	private int indice;
 	private JLabel lblNumeroPokemon;
 	private JLabel lblNumeroPokemon2;
 	private JLabel lblNombre;
@@ -75,13 +78,14 @@ public class CrearView {
 	private Panel fondoBienvebido;
 	private JLabel lblCreacionNuevoPokemon;
 	private GroupLayout gl_bordePantalla;
+	private PokemonDAO pokemonDAO;
 
 	/**
 	 * Create the application.
 	 */
-	public CrearView(JFrame parent, int numeroPokemon) {
-		this.parent = parent;	
-		this.numeroPokemon = numeroPokemon;
+	public CrearView(int indice) {
+		this.indice = indice;
+		this.pokemonDAO = new PokemonDAO();
 		initialize();
 	}
 
@@ -190,7 +194,7 @@ public class CrearView {
 				Pantalla.add(lblNumeroPokemon);
 				lblNumeroPokemon.setFont(new Font("Alef", Font.PLAIN, 16));
 				
-				lblNumeroPokemon2 = new JLabel("" + numeroPokemon);
+				lblNumeroPokemon2 = new JLabel("");
 				lblNumeroPokemon2.setBounds(189, 21, 45, 13);
 				Pantalla.add(lblNumeroPokemon2);
 				lblNumeroPokemon2.setFont(new Font("Courier New", Font.PLAIN, 13));
@@ -423,32 +427,40 @@ public class CrearView {
 	 * si dicho pokemon ya existe o si el Tipo no cumple las condiciones
 	 */
 	private void comprobarDatos() {
-		String nombre = tfNombre.getText();
-		TiposPokemon tipo1 = (TiposPokemon)comboBoxTipo1.getSelectedItem();
-		TiposPokemon tipo2 = (TiposPokemon)comboBoxTipo2.getSelectedItem();
-		double altura = Double.parseDouble(tfAltura.getText());
-		double peso = Double.parseDouble(tfPeso.getText());
-		String categoria = tfCategoria.getText();
-		String habilidad = tfHabilidad.getText();
-		String imagen = "imagenes/nuevoPokemon.png";
-		boolean existe = false;
-		for(int i = 0; i < Almacen.lista_pokemons.size(); i++) {
-			if ((Almacen.lista_pokemons.get(i).getNombre()).equals(nombre)) {
-				existe = true;
-			}else{
-				existe = false;
-
+		
+		if(!tfNombre.getText().isEmpty() || !tfAltura.getText().isEmpty() || !tfPeso.getText().isEmpty() || !tfCategoria.getText().isEmpty() || !tfHabilidad.getText().isEmpty()) {
+			
+			try {
+				
+				String nombre = tfNombre.getText();
+				TiposPokemon tipo1 = (TiposPokemon)comboBoxTipo1.getSelectedItem();
+				TiposPokemon tipo2 = (TiposPokemon)comboBoxTipo2.getSelectedItem();
+				double altura = Double.parseDouble(tfAltura.getText());
+				double peso = Double.parseDouble(tfPeso.getText());
+				String categoria = tfCategoria.getText();
+				String habilidad = tfHabilidad.getText();
+				String imagen = "Imagenes/nuevoPokemon.png";
+				boolean existe = false;
+				
+				Pokemon pokemon = new Pokemon (0, nombre, tipo1, tipo2, altura, peso, categoria, habilidad, imagen);
+				
+				pokemonDAO.insert(pokemon);
+				
+				JOptionPane.showMessageDialog(btnCrear, "Pokemon creado con éxito");
+				
+				frameCrearView.dispose();
+				new PokedexView();
+				
+			} catch(Exception e) {
+				System.out.println(e.getMessage());
+				
 			}
+			
+			
+			
+		} else {
+			JOptionPane.showMessageDialog(btnCrear, "Rellene todos los campos");
 		}
-		
-		if(existe == false) {
-			Almacen.lista_pokemons.add(new Pokemon(numeroPokemon, nombre, tipo1, tipo2, altura, peso, categoria, habilidad, imagen));		
-			frameCrearView.dispose();
-			parent.setVisible(true);
-		}else{
-			JOptionPane.showMessageDialog(btnCrear, "El pokemon " + nombre + " ya existe.");
-		}
-		
 		
 	}
 }

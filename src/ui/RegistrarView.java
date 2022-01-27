@@ -35,6 +35,7 @@ import javax.swing.SwingConstants;
 public class RegistrarView {
 
 	private JFrame frameRegistrarView;
+	private GroupLayout gl_bordePantalla;
 	private JLabel lblNewUsername;
 	private JTextField tfNewUsername;
 	private JLabel lblNewPassword;
@@ -247,7 +248,7 @@ public class RegistrarView {
 		Pantalla.setForeground(Color.BLACK);
 		Pantalla.setBorder(new LineBorder(new Color(0, 0, 0), 3));
 		Pantalla.setBackground(Color.WHITE);
-		GroupLayout gl_bordePantalla = new GroupLayout(bordePantalla);
+		gl_bordePantalla = new GroupLayout(bordePantalla);
 		gl_bordePantalla.setHorizontalGroup(
 			gl_bordePantalla.createParallelGroup(Alignment.LEADING)
 				.addGap(0, 401, Short.MAX_VALUE)

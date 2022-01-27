@@ -22,6 +22,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
+import dao.PokemonDAO;
 import enums.TiposPokemon;
 import models.Pokemon;
 import utils.Almacen;
@@ -75,16 +76,18 @@ public class ActualizarView {
 	private GroupLayout gl_bordePantalla;
 	private JFrame lastLoginView;
 	private String username;
+	private int indice;
+	private PokemonDAO pokemonDAO;
+	private Pokemon pokemon;
 
 
 	/**
 	 * Create the application.
 	 */
-	public ActualizarView(JFrame lastLoginView, JFrame parent, String username, int numeroPokemon) {
-		this.lastLoginView = lastLoginView;
-		this.parent = parent;	
-		this.username = username;
-		this.numeroPokemon = numeroPokemon;
+	public ActualizarView(int indice, Pokemon pokemon) {
+		this.pokemon = pokemon;
+		this.indice = indice;
+		this.pokemonDAO = new PokemonDAO();
 		initialize();
 	}
 
@@ -188,7 +191,7 @@ public class ActualizarView {
 				Pantalla.add(lblNumeroPokemon);
 				lblNumeroPokemon.setFont(new Font("Alef", Font.PLAIN, 16));
 				
-				lblNumeroPokemon2 = new JLabel("" + numeroPokemon + 1);
+				lblNumeroPokemon2 = new JLabel(""+ pokemon.getIdPokemon());
 				lblNumeroPokemon2.setBounds(189, 21, 45, 13);
 				Pantalla.add(lblNumeroPokemon2);
 				lblNumeroPokemon2.setFont(new Font("Courier New", Font.PLAIN, 13));
@@ -200,7 +203,7 @@ public class ActualizarView {
 				Pantalla.add(lblNombre);
 				lblNombre.setFont(new Font("Alef", Font.PLAIN, 16));
 				
-				lblNombrePoke = new JLabel (Almacen.lista_pokemons.get(numeroPokemon).getNombre());
+				lblNombrePoke = new JLabel (pokemon.getNombre());
 				lblNombrePoke.setBounds(189, 53, 96, 19);
 				Pantalla.add(lblNombrePoke);
 				lblNombrePoke.setFont(new Font("Courier New", Font.PLAIN, 13));
@@ -215,7 +218,7 @@ public class ActualizarView {
 				lblAltura.setFont(new Font("Alef", Font.PLAIN, 16));
 				
 				tfAltura = new JTextField();
-				tfAltura.setText("" + Almacen.lista_pokemons.get(numeroPokemon).getAltura());
+				tfAltura.setText("" + pokemon.getAltura());
 				tfAltura.setBounds(189, 89, 96, 19);
 				Pantalla.add(tfAltura);
 				tfAltura.setFont(new Font("Courier New", Font.PLAIN, 13));
@@ -229,7 +232,7 @@ public class ActualizarView {
 				lblPeso.setFont(new Font("Alef", Font.PLAIN, 16));
 				
 				tfPeso = new JTextField();
-				tfPeso.setText(""+Almacen.lista_pokemons.get(numeroPokemon).getPeso());
+				tfPeso.setText("" + pokemon.getPeso());
 				tfPeso.setBounds(189, 126, 96, 19);
 				Pantalla.add(tfPeso);
 				tfPeso.setFont(new Font("Courier New", Font.PLAIN, 13));
@@ -243,7 +246,7 @@ public class ActualizarView {
 				lblCategoria.setFont(new Font("Alef", Font.PLAIN, 16));
 				
 				tfCategoria = new JTextField();
-				tfCategoria.setText("" + Almacen.lista_pokemons.get(numeroPokemon).getCategoria());
+				tfCategoria.setText("" + pokemon.getCategoria());
 				tfCategoria.setBounds(189, 162, 96, 19);
 				Pantalla.add(tfCategoria);
 				tfCategoria.setFont(new Font("Courier New", Font.PLAIN, 13));
@@ -258,7 +261,7 @@ public class ActualizarView {
 				lblHabilidad.setFont(new Font("Alef", Font.PLAIN, 16));
 								
 				tfHabilidad = new JTextField();
-				tfHabilidad.setText("" + Almacen.lista_pokemons.get(numeroPokemon).getHabilidad());
+				tfHabilidad.setText("" + pokemon.getHabilidad());
 				tfHabilidad.setBounds(189, 199, 96, 19);
 				Pantalla.add(tfHabilidad);
 				tfHabilidad.setFont(new Font("Courier New", Font.PLAIN, 13));
@@ -408,14 +411,17 @@ public class ActualizarView {
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frameActualizarView.dispose();
-				parent.setVisible(true);
+				new PokedexView();
 			}
 		});
 		
 		//Activa el método comprobarDatos(), que actualizara los datos del pokemon
 		btnActualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				actualizarDatos();
+
+				actualizarDatos(pokemon);
+				
+				
 			}
 		});
 		
@@ -425,30 +431,26 @@ public class ActualizarView {
 	 * Método que comprobara si los datos introducidos del pokemon son correctos, es decir, 
 	 * si dicho pokemon ya existe o si el Tipo no cumple las condiciones
 	 */
-	private void actualizarDatos() {
-		//Metemos los datos escritos en variables
-		TiposPokemon tipo1 = (TiposPokemon)comboBoxTipo1.getSelectedItem();
-		TiposPokemon tipo2 = (TiposPokemon)comboBoxTipo2.getSelectedItem();
-		double altura = Double.parseDouble(tfAltura.getText());
-		double peso = Double.parseDouble(tfPeso.getText());
-		String categoria = tfCategoria.getText();
-		String habilidad = tfHabilidad.getText();		
+	private void actualizarDatos(Pokemon pokemon) {
 
 		//Llamamos a los setters para cambiarlos
-		Almacen.lista_pokemons.get(numeroPokemon).setTipo1(tipo1);
-		Almacen.lista_pokemons.get(numeroPokemon).setTipo2(tipo2);
-		Almacen.lista_pokemons.get(numeroPokemon).setAltura(altura);
-		Almacen.lista_pokemons.get(numeroPokemon).setPeso(peso);
-		Almacen.lista_pokemons.get(numeroPokemon).setCategoria(categoria);
-		Almacen.lista_pokemons.get(numeroPokemon).setHabilidad(habilidad);
+		pokemon.setTipo1((TiposPokemon)comboBoxTipo1.getSelectedItem());
+		pokemon.setTipo2((TiposPokemon)comboBoxTipo2.getSelectedItem());
+		pokemon.setAltura(Double.parseDouble(tfAltura.getText()));
+		pokemon.setPeso(Double.parseDouble(tfPeso.getText()));
+		pokemon.setCategoria(tfCategoria.getText());
+		pokemon.setHabilidad(tfHabilidad.getText());
+		
+		pokemonDAO.actualizar(pokemon);
 		
 		JOptionPane.showMessageDialog(btnActualizar, "Pokemon actualizado con éxito.");
 		
 		frameActualizarView.dispose();
-		new PokedexView(lastLoginView, username, numeroPokemon);
+		new PokedexView();
 
-			}
+	}
+	
 	
 		
-	}
+}
 

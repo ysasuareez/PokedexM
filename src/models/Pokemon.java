@@ -10,7 +10,7 @@ public class Pokemon {
 	/**
 	 * ATRIBUTOS
 	 */
-	private int numeroPokemon;
+	private int idPokemon;
 	private String nombre;
 	private TiposPokemon tipo1;
 	private TiposPokemon tipo2;
@@ -21,6 +21,8 @@ public class Pokemon {
 	private String imagen;
 	
 	
+
+
 	/**
 	 * CONSTRUCTOR
 	 * @param numero
@@ -31,9 +33,9 @@ public class Pokemon {
 	 * @param categoria
 	 * @param habilidad
 	 */
-	public Pokemon(int numeroPokemon, String nombre, TiposPokemon tipo1, TiposPokemon tipo2, double altura, double peso, String categoria,String habilidad, String imagen) {
+	public Pokemon(int idPokemon, String nombre, TiposPokemon tipo1, TiposPokemon tipo2, double altura, double peso, String categoria,String habilidad, String imagen) {
 		super();
-		this.numeroPokemon = numeroPokemon;
+		this.idPokemon = idPokemon;
 		this.nombre = nombre;
 		this.tipo1 = tipo1;
 		this.tipo2 = tipo2;
@@ -49,14 +51,14 @@ public class Pokemon {
 	/**
 	 * G & S
 	 */
-	public int getNumero() {
-		return numeroPokemon;
+	public int getIdPokemon() {
+		return idPokemon;
 	}
 
 
 
-	public void setNumero(int numeroPokemon) {
-		this.numeroPokemon = numeroPokemon;
+	public void setIdPokemon(int numeroPokemon) {
+		this.idPokemon = numeroPokemon;
 	}
 
 
@@ -152,5 +154,15 @@ public class Pokemon {
 		this.imagen = imagen;
 	}
 	
+	/*
+	 * TO STRING
+	 */
+	@Override
+	public String toString() {
+		return "Pokemon [idPokemon=" + idPokemon + ", nombre=" + nombre + ", tipo1=" + tipo1 + ", tipo2=" + tipo2
+				+ ", altura=" + altura + ", peso=" + peso + ", categoria=" + categoria + ", habilidad=" + habilidad
+				+ ", imagen=" + imagen + "]";
+	}
+
 
 }
